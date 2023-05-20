@@ -20,6 +20,7 @@ public class GameService {
 	
 	// Retorna uma lista preenchendo o GameMinDTO de acordo com as 
 	// infos adquiridas do Game, copiando apenas os campos solicitados.
+	@Transactional(readOnly = true)
 	public List<GameMinDTO> findAll() {
 		List<Game> result = gameRepository.findAll();
 		return result.stream().map(x -> new GameMinDTO(x)).toList();
@@ -32,7 +33,7 @@ public class GameService {
 	}
 	
 	@Transactional(readOnly = true) // Assegura que não havera acoes escritas
-	public List<GameMinDTO> findByList(Long listId) {
+	public List<GameMinDTO> findByGameList(Long listId) {
 		List<GameMinProjection> result = gameRepository.searchByList(listId);
 		return result.stream().map(x -> new GameMinDTO(x)).toList(); 
 		// Transforma a lista de GameMinProjection p/ GameMinDTO
