@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +30,12 @@ public class GameController {
 	@GetMapping(value = "/{id}") //Informa que havera um parametro
 	public GameDTO findById(@PathVariable Long id) {
 		GameDTO result = gameService.findById(id);
+		return result;
+	}
+	
+	@PutMapping(value = "/{id}/update-short-description")
+	public GameDTO updateShortDescription(@PathVariable Long id, @RequestBody GameDTO gameDTO) {
+		GameDTO result = gameService.updateShortDescription(id, gameDTO);
 		return result;
 	}
 }

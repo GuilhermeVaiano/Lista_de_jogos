@@ -1,6 +1,7 @@
 package com.devsuperior.dslist.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,19 @@ public class GameService {
 		return result.stream().map(x -> new GameMinDTO(x)).toList(); 
 		// Transforma a lista de GameMinProjection p/ GameMinDTO
 
-	}	
+	}
+	
+	@Transactional
+	public GameDTO updateShortDescription(Long id, GameDTO gameDTO) {
+		Optional<Game> gameOpt = gameRepository.findById(id); //Possibilidade de encontrar ou nao
+		
+		if(gameOpt.isPresent()) {
+			Game game = gameOpt.get();
+			game.setShortDescription(gameDTO.getShortDescription());
+			game = gameRepository.save(game);
+			return new GameDTO(game);
+		} else {
+			throw new IllegalArgumentException("Jogo com Id informado não encontrado");
+		}
+	}
 }
