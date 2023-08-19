@@ -3,7 +3,7 @@ import requests, json
 import openai
 
 gamelist_api_url = 'http://localhost:8080'
-openai_api_key = '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'
+openai_api_key = '' ## Insira a chave da API aqui
 openai.api_key = openai_api_key
 
 
